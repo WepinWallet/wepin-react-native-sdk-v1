@@ -1,11 +1,11 @@
 {
   "name": "@wepin/storage-rn",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Wepin React Native Storage for Android/iOS",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index",
+  "react-native": "lib/module/index.js",
   "source": "src/index",
   "files": [
     "src",
