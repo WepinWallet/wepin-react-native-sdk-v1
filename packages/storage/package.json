@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "bob build",
+    "build": "bob build",
     "release": "release-it"
   },
   "keywords": [
@@ -155,7 +155,8 @@
       [
         "typescript",
         {
-          "project": "tsconfig.build.json"
+          "project": "tsconfig.build.json",
+          "tsc": "./node_modules/.bin/tsc"
         }
       ]
     ]
