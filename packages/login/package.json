@@ -1,6 +1,6 @@
 {
   "name": "@wepin/login-rn",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wepin React Native Login Library for Android/iOS",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -31,7 +31,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "build": "bob build",
-    "postbuild": "echo { \"version\": \"%npm_package_version%\" } > lib/package.json",
+    "postbuild": "cross-var echo \"{ \\\"version\\\": \\\"$npm_package_version\\\" }\" > lib/package.json",
     "release": "release-it"
   },
   "keywords": [
@@ -76,6 +76,7 @@
     "@types/secp256k1": "^4.0.6",
     "@types/sha256": "^0.2.2",
     "commitlint": "^17.0.2",
+    "cross-var": "^1.1.0",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
