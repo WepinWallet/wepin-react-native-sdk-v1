@@ -1,0 +1,1 @@
+{"version":3,"names":["WEPIN_OAUTH2","exports","WEPIN_OAUTH_TOKEN_TYPE"],"sourceRoot":"../../../src","sources":["const/config.ts"],"mappings":";;;;;;AAAA;AACA;AACA;AACO,MAAMA,YAAY,GAAAC,OAAA,CAAAD,YAAA,GAAG,CAAC,QAAQ,EAAE,OAAO,EAAE,SAAS,EAAE,OAAO,CAAU;AACrE,MAAME,sBAAsB,GAAAD,OAAA,CAAAC,sBAAA,GAAG,CAAC,UAAU,EAAE,cAAc,CAAU","ignoreList":[]}
