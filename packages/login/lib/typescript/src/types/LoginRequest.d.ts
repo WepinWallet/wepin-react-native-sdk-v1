@@ -6,7 +6,7 @@ export interface ILoginOauth2Params {
 }
 export interface ILoginIdTokenParams {
     token: string;
-    sign: string;
+    sign?: string;
 }
 export interface ILoginAccessTokenParams extends ILoginIdTokenParams {
     provider: 'naver' | 'discord';

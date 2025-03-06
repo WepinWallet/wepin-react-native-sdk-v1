@@ -3,7 +3,7 @@ export class WepinStorageManager {
   constructor(platform, appId) {
     this.appId = appId;
     this.platform = platform;
-    this.wepinStorage = new WepinRNStorage();
+    this.wepinStorage = new WepinRNStorage(this.appId);
   }
   async setAllLocalStorage(value) {
     await this.wepinStorage.setAllLocalStorage(this.appId, value);
@@ -24,7 +24,7 @@ export class WepinStorageManager {
     if (onlyAppId) {
       await this.wepinStorage.clearAllLocalStorage(this.appId);
     } else {
-      await this.wepinStorage.clearAllAppIdsData();
+      await this.wepinStorage.clearAllLocalStorage(this.appId);
     }
   }
   async setLoginUserLocalStorage(request, response) {

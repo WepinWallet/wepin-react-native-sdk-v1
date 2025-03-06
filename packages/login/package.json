@@ -1,6 +1,6 @@
 {
   "name": "@wepin/login-rn",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Wepin React Native Login Library for Android/iOS",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -53,10 +53,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@wepin/common": "0.0.2",
-    "@wepin/fetch-js": "^0.0.7",
-    "@wepin/storage-js": "^0.0.4",
-    "@wepin/storage-rn": "^0.0.2",
+    "@wepin/storage-rn": "^1.0.0",
+    "@wepin/common": "0.0.32",
+    "@wepin/fetch-js": "0.0.32",
+    "@wepin/storage-js": "^0.0.32",
     "events": "^3.3.0",
     "invariant": "2.2.4",
     "jwt-decode": "3.1.2",
