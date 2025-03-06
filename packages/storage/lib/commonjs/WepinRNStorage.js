@@ -9,10 +9,12 @@ var _reactNative = require("react-native");
 /* eslint-disable dot-notation */
 
 class WepinRNStorage {
-  static #COOKIE_NAME = 'wepin:auth:';
-  static #ALL_APP_IDS_KEY = 'wepin:allAppIds';
-  constructor() {
+  // static #COOKIE_NAME = 'wepin:auth:';
+  // static #ALL_APP_IDS_KEY = 'wepin:allAppIds';
+
+  constructor(appId) {
     this.platform = _reactNative.Platform.OS === 'ios' ? 'ios' : 'android';
+    (0, _NativeModuleWepinStorage.initializeStorage)(appId);
   }
   getLocalStorageEnabled() {
     throw new Error('Method not implemented.');
@@ -20,103 +22,97 @@ class WepinRNStorage {
 
   /// @name addAppId
   /// @description add app id
-  async addAppId(appId) {
-    const appIds = await this.getAllAppIds();
-    if (!appIds.includes(appId)) {
-      appIds.push(appId);
-      await (0, _NativeModuleWepinStorage.setItem)(WepinRNStorage.#ALL_APP_IDS_KEY, JSON.stringify(appIds));
-    }
-  }
+  // private async addAppId(appId: string): Promise<void> {
+  //   const appIds = await this.getAllAppIds();
+  //   if (!appIds.includes(appId)) {
+  //     appIds.push(appId);
+  //     await setItem(WepinRNStorage.#ALL_APP_IDS_KEY, JSON.stringify(appIds));
+  //   }
+  // }
 
   /// @name getAllAppIds
   /// @description get all app ids
-  async getAllAppIds() {
-    const appIds = await (0, _NativeModuleWepinStorage.getItem)(WepinRNStorage.#ALL_APP_IDS_KEY);
-    return appIds ? JSON.parse(appIds) : [];
-  }
+  // private async getAllAppIds(): Promise<string[]> {
+  //   const appIds = await getItem(WepinRNStorage.#ALL_APP_IDS_KEY);
+  //   return appIds ? JSON.parse(appIds) : [];
+  // }
 
   /// @name getAllData
   /// @description get all appId data
-  async getAllData() {
-    const appIds = await this.getAllAppIds();
-    const allData = {};
-    for (const appId of appIds) {
-      const data = await this.getAllLocalStorage(appId);
-      if (data) {
-        allData[appId] = data;
-      }
-    }
-    return allData;
-  }
+  // public async getAllData(): Promise<Record<string, LocalStorageType>> {
+  // const appIds = await this.getAllAppIds();
+  // const allData: Record<string, LocalStorageType> = {};
+  // for (const appId of appIds) {
+  //   const data = await this.getAllLocalStorage(appId);
+  //   if (data) {
+  //     allData[appId] = data;
+  //   }
+  // }
+  // return allData;
+  //   return getAllItems();
+  // }
 
   /// @name clearAllAppIds
   /// @description clear all app ids
-  async clearAllAppIds() {
-    await (0, _NativeModuleWepinStorage.removeItem)(WepinRNStorage.#ALL_APP_IDS_KEY);
-  }
-  async setAllLocalStorage(appId, value) {
-    const data = JSON.stringify(value);
-    await this.addAppId(appId);
-    await (0, _NativeModuleWepinStorage.setItem)(WepinRNStorage.#COOKIE_NAME + appId, data);
+  // public async clearAllAppIds(): Promise<void> {
+  //   await removeItem(WepinRNStorage.#ALL_APP_IDS_KEY);
+  // }
+  async setAllLocalStorage(appId, data) {
+    const saveData = Object.fromEntries(Object.entries(data).map(([key, value]) => [key, JSON.stringify(value)]));
+    await (0, _NativeModuleWepinStorage.setAllItems)(appId, saveData);
   }
   async setLocalStorage(appId, name, value) {
-    await this.addAppId(appId);
     const localData = await this.getAllLocalStorage(appId);
     if (localData) {
       localData[name] = value;
       await this.setAllLocalStorage(appId, localData);
       return;
     }
-    const newData = {
-      [name]: value
-    };
-    await (0, _NativeModuleWepinStorage.setItem)(WepinRNStorage.#COOKIE_NAME + appId, JSON.stringify(newData));
+    // const newData = { [name]: value };
+    await (0, _NativeModuleWepinStorage.setItem)(appId, name, JSON.stringify(value));
   }
   async getLocalStorage(appId, name) {
-    const localData = await this.getAllLocalStorage(appId);
+    const localData = await (0, _NativeModuleWepinStorage.getItem)(appId, name);
     try {
       if (localData) {
-        return JSON.parse(localData[name]);
+        return JSON.parse(localData);
       }
     } catch (e) {
-      if (localData) {
-        return localData[name];
-      }
+      return localData;
     }
     return;
   }
   async getAllLocalStorage(appId) {
-    const storage = await (0, _NativeModuleWepinStorage.getItem)(WepinRNStorage.#COOKIE_NAME + appId);
-    const data = storage ? JSON.parse(storage) : undefined;
-    return data;
+    const storage = await (0, _NativeModuleWepinStorage.getAllItems)(appId);
+    try {
+      return Object.fromEntries(Object.entries(storage).map(([key, value]) => {
+        try {
+          return [key, JSON.parse(value)];
+        } catch (e) {
+          return [key, value];
+        }
+      }));
+    } catch (e) {
+      return;
+    }
   }
   async clearLocalStorage(appId, name) {
-    const data = await this.getLocalStorage(appId, name);
-    if (data) {
-      const localData = await this.getAllLocalStorage(appId);
-      if (!localData) return;
-      delete localData[name];
-      await this.setAllLocalStorage(appId, localData);
-    }
+    await (0, _NativeModuleWepinStorage.removeItem)(appId, name);
   }
   async clearAllLocalStorage(appId) {
-    await (0, _NativeModuleWepinStorage.removeItem)(WepinRNStorage.#COOKIE_NAME + appId);
-    const appIds = await this.getAllAppIds();
-    const index = appIds.indexOf(appId);
-    if (index !== -1) {
-      appIds.splice(index, 1);
-      await (0, _NativeModuleWepinStorage.setItem)(WepinRNStorage.#ALL_APP_IDS_KEY, JSON.stringify(appIds));
-    }
+    await (0, _NativeModuleWepinStorage.clear)(appId);
   }
-  async clearAllAppIdsData() {
-    const appIds = await this.getAllAppIds();
-    for (const id of appIds) {
-      await (0, _NativeModuleWepinStorage.removeItem)(WepinRNStorage.#COOKIE_NAME + id);
-    }
-    await this.clearAllAppIds();
-  }
+
+  // public async clearAllAppIdsData(): Promise<void> {
+  //   const appIds = await this.getAllAppIds();
+  //   for (const id of appIds) {
+  //     await removeItem(WepinRNStorage.#COOKIE_NAME + id);
+  //   }
+  //   await this.clearAllAppIds();
+  // }
+
   async setLoginUserLocalStorage(appId, request, response) {
-    await this.addAppId(appId);
+    // await this.addAppId(appId);
     const localData = {};
     localData['firebase:wepin'] = Object.assign({
       provider: request === null || request === void 0 ? void 0 : request.provider

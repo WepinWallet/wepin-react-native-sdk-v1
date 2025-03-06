@@ -8,16 +8,25 @@ const StorageRn = NativeModules.WepinStorageRn ? NativeModules.WepinStorageRn : 
     throw new Error(LINKING_ERROR);
   }
 });
-export const setItem = async (key, value) => {
-  return StorageRn.setItem(key, value);
+export const initializeStorage = async appId => {
+  return StorageRn.initializeStorage(appId);
 };
-export const getItem = async key => {
-  return StorageRn.getItem(key);
+export const setItem = async (appId, key, value) => {
+  return StorageRn.setItem(appId, key, value);
 };
-export const removeItem = async key => {
-  return StorageRn.removeItem(key);
+export const setAllItems = async (appId, data) => {
+  return StorageRn.setAllItems(appId, data);
 };
-export const clear = async () => {
-  return StorageRn.clear();
+export const getItem = async (appId, key) => {
+  return StorageRn.getItem(appId, key);
+};
+export const getAllItems = async appId => {
+  return StorageRn.getAllItems(appId);
+};
+export const removeItem = async (appId, key) => {
+  return StorageRn.removeItem(appId, key);
+};
+export const clear = async appId => {
+  return StorageRn.clear(appId);
 };
 //# sourceMappingURL=NativeModuleWepinStorage.js.map

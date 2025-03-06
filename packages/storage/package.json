@@ -1,11 +1,11 @@
 {
   "name": "@wepin/storage-rn",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Wepin React Native Storage for Android/iOS",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index",
+  "react-native": "lib/module/index.js",
   "source": "src/index",
   "files": [
     "src",
@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "bob build",
+    "build": "bob build",
     "release": "release-it"
   },
   "keywords": [
@@ -53,8 +53,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@wepin/common": "^0.0.2",
-    "@wepin/storage-js": "^0.0.4",
+    "@wepin/common": "0.0.32",
+    "@wepin/storage-js": "^0.0.32",
     "events": "^3.3.0",
     "invariant": "2.2.4"
   },
@@ -155,7 +155,8 @@
       [
         "typescript",
         {
-          "project": "tsconfig.build.json"
+          "project": "tsconfig.build.json",
+          "tsc": "./node_modules/.bin/tsc"
         }
       ]
     ]
