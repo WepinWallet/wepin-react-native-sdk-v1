@@ -1,14 +1,12 @@
-import type { WEPIN_OAUTH2 } from '../const/config';
 export interface ILoginOauth2Params {
-    provider: (typeof WEPIN_OAUTH2)[number];
+    provider: string;
     clientId: string;
     withLogout?: boolean;
 }
 export interface ILoginIdTokenParams {
     token: string;
-    sign?: string;
 }
 export interface ILoginAccessTokenParams extends ILoginIdTokenParams {
-    provider: 'naver' | 'discord';
+    provider: string;
 }
 //# sourceMappingURL=LoginRequest.d.ts.map

@@ -3,12 +3,13 @@ buildscript {
   def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["LoginRn_kotlinVersion"]
 
   repositories {
+    mavenLocal()
     google()
     mavenCentral()
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath "com.android.tools.build:gradle:8.5.1"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -61,11 +62,11 @@ android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 
   defaultConfig {
-    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    minSdkVersion 24
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     manifestPlaceholders = [
-              'appAuthRedirectScheme': 'please.override.me'
-      ]
+      'appAuthRedirectScheme': 'please.override.me'
+    ]
   }
 
   buildTypes {
@@ -85,8 +86,10 @@ android {
 }
 
 repositories {
+  mavenLocal()
   mavenCentral()
   google()
+  maven { url 'https://jitpack.io' }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
@@ -95,9 +98,9 @@ dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
-  implementation "com.facebook.react:react-native:+"
+  implementation "com.facebook.react:react-android:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'net.openid:appauth:0.11.1'
 
+ implementation "com.github.WepinWallet:wepin-android-sdk-login-v1:v1.1.2"
 }
 

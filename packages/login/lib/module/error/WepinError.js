@@ -11,7 +11,7 @@ export let WepinLoginErrorCode = /*#__PURE__*/function (WepinLoginErrorCode) {
   WepinLoginErrorCode["NotConnectedInternet"] = "NotConnectedInternet";
   WepinLoginErrorCode["FailedLogin"] = "FailedLogin";
   WepinLoginErrorCode["AlreadyLogout"] = "AlreadyLogout";
-  WepinLoginErrorCode["AlraadyInitialized"] = "AlraadyInitialized";
+  WepinLoginErrorCode["AlreadyInitialized"] = "AlreadyInitialized";
   WepinLoginErrorCode["InvalidEmailDomain"] = "InvalidEmailDomain";
   WepinLoginErrorCode["FailedSendEmail"] = "FailedSendEmail";
   WepinLoginErrorCode["RequiredEmailVerified"] = "RequiredEmailVerified";
@@ -23,6 +23,8 @@ export let WepinLoginErrorCode = /*#__PURE__*/function (WepinLoginErrorCode) {
   WepinLoginErrorCode["FailedPasswordStateSetting"] = "FailedPasswordStateSetting";
   WepinLoginErrorCode["FailedPasswordSetting"] = "FailedPasswordSetting";
   WepinLoginErrorCode["ExistedEmail"] = "ExistedEmail";
+  WepinLoginErrorCode["NotActivity"] = "NotActivity";
+  WepinLoginErrorCode["Deprecated"] = "Deprecated";
   return WepinLoginErrorCode;
 }({});
 export class WepinLoginError extends Error {
@@ -31,5 +33,16 @@ export class WepinLoginError extends Error {
     this.code = code;
     this.name = 'WepinLoginError';
   }
+}
+
+// 네이티브 에러를 WepinLoginError로 변환하는 헬퍼 함수
+export function convertNativeError(error) {
+  // error.code가 WepinLoginErrorCode 열거형에 있는지 확인
+  if (error.code && Object.values(WepinLoginErrorCode).includes(error.code)) {
+    return new WepinLoginError(error.code, error.message);
+  }
+
+  // 알려진 에러 코드가 아니거나 에러 코드가 없는 경우
+  return new WepinLoginError(WepinLoginErrorCode.UnknownError, error.message || error.toString() || 'Unknown native error occurred');
 }
 //# sourceMappingURL=WepinError.js.map

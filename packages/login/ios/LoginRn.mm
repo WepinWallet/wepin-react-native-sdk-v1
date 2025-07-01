@@ -3,23 +3,61 @@
 @interface RCT_EXTERN_MODULE(LoginRn, NSObject)
 
 
-RCT_EXTERN_METHOD(authorize:(NSString *)wepinAppId
-                 withRedirectUrl:(NSString *)redirectUrl
+RCT_EXTERN_METHOD(createWepinLogin:(NSString *)appId
+                 withAppKey:(NSString *)appKey)
+
+RCT_EXTERN_METHOD(initialize:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(isInitialize:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(loginWithOauthProvider:(NSString *)provider
                  withClientId:(NSString *)clientId
-                 withScopes:(NSArray<NSString *> *)scopes
-                 withAdditionalParameters: (NSDictionary *_Nullable)additionalParameters
-                 withServiceConfiguration: (NSDictionary *_Nullable)serviceConfiguration
-                 withSkipCodeExchange:(BOOL)skipCodeExchange
-                 withConnectionTimeoutSeconds:(double)connectionTimeoutSeconds
-                 withAdditionalHeaders: (NSDictionary *_Nullable)additionalHeaders
-                 withIosCustomBrowser:(NSString *)iosCustomBrowser
-                 withPrefersEphemeralSession:(BOOL)prefersEphemeralSession
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(signUpWithEmailAndPassword:(NSString *)email
+                 withPassword:(NSString *)password
+                 withLocale:(NSString * __nullable)locale  //optional 처리 방법 확인
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(loginWithEmailAndPassword:(NSString *)email
+                 withPassword:(NSString *)password
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(loginWithIdToken:(NSString *)idToken
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(loginWithAccessToken:(NSString *)provider
+                 withAccessToken:(NSString *)accessToken
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getRefreshFirebaseToken:(NSDictionary * __nullable)prevToken //optional
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(loginWepin:(NSDictionary *)params
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getCurrentWepinUser:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(logout:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(finalize:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+
 + (BOOL)requiresMainQueueSetup
 {
-  return NO;
+  return YES;
 }
 
 @end

@@ -25,15 +25,4 @@ Object.keys(_LoginResult).forEach(function (key) {
     }
   });
 });
-var _NativeModuleTypes = require("./NativeModuleTypes");
-Object.keys(_NativeModuleTypes).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _NativeModuleTypes[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _NativeModuleTypes[key];
-    }
-  });
-});
 //# sourceMappingURL=index.js.map

@@ -11,7 +11,7 @@ export declare enum WepinLoginErrorCode {
     NotConnectedInternet = "NotConnectedInternet",
     FailedLogin = "FailedLogin",
     AlreadyLogout = "AlreadyLogout",
-    AlraadyInitialized = "AlraadyInitialized",
+    AlreadyInitialized = "AlreadyInitialized",
     InvalidEmailDomain = "InvalidEmailDomain",
     FailedSendEmail = "FailedSendEmail",
     RequiredEmailVerified = "RequiredEmailVerified",
@@ -22,10 +22,13 @@ export declare enum WepinLoginErrorCode {
     FailedEmailVerified = "FailedEmailVerified",
     FailedPasswordStateSetting = "FailedPasswordStateSetting",
     FailedPasswordSetting = "FailedPasswordSetting",
-    ExistedEmail = "ExistedEmail"
+    ExistedEmail = "ExistedEmail",
+    NotActivity = "NotActivity",
+    Deprecated = "Deprecated"
 }
 export declare class WepinLoginError extends Error {
     code: WepinLoginErrorCode;
     constructor(code: WepinLoginErrorCode, message?: string);
 }
+export declare function convertNativeError(error: any): WepinLoginError;
 //# sourceMappingURL=WepinError.d.ts.map

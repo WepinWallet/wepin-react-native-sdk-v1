@@ -10,8 +10,6 @@ export declare class WepinLogin {
     wepinAppKey: string | undefined;
     wepinDomain: string | undefined;
     _isInitialized: boolean;
-    private storageManager;
-    private _wepinFetch;
     appEmailVerified: boolean;
     constructor({ appId, appKey }: {
         appId: string;
@@ -21,7 +19,7 @@ export declare class WepinLogin {
     /**
      * Initialize WepinLogin Object. It returns widget instance.
      */
-    init(): Promise<void>;
+    init(): Promise<boolean>;
     /**
      * Check if wepin is initialized.
      *
@@ -31,17 +29,13 @@ export declare class WepinLogin {
     /**
      * Finalize Wepin Object.
      */
-    finalize(): Promise<void>;
-    private initCookieData;
+    finalize(): Promise<boolean>;
     loginWithOauthProvider(params: ILoginOauth2Params): Promise<LoginOauthResult>;
     signUpWithEmailAndPassword(email: string, password: string, locale?: string): Promise<LoginResult>;
-    private changePassword;
-    private loginWithEmailAndResetPasswordState;
     loginWithEmailAndPassword(email: string, password: string): Promise<LoginResult>;
-    private doFirebaseLoginWithCustomToken;
     loginWithIdToken(params: ILoginIdTokenParams): Promise<LoginResult>;
     loginWithAccessToken(params: ILoginAccessTokenParams): Promise<LoginResult>;
-    getRefreshFirebaseToken(): Promise<LoginResult>;
+    getRefreshFirebaseToken(prevToken?: LoginResult): Promise<LoginResult>;
     /**
      * Returns the user's login information.
      * This method with the same as `loginWithUI()`, but it doesn't show the widget.
