@@ -1,0 +1,2 @@
+
+//# sourceMappingURL=WepinLifeCycle.js.map
