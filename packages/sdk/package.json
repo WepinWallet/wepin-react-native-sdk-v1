@@ -1,6 +1,6 @@
 {
   "name": "@wepin/sdk-rn",
-  "version": "1.1.2-beta",
+  "version": "1.2.1",
   "description": "Wepin React Native SDK Library for Android/iOS",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
